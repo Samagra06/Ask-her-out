@@ -14,10 +14,8 @@ function startQuestions() {
   function answerNo() {
     document.getElementById("questions").style.display = "none";
     document.getElementById("que").style.display = "none";
-    document.getElementById("init").innerText = "YEY YEY 🎉🎉🎉";
     document.getElementById("message").style.display = "block";
     document.getElementById("messageText").innerText = "No is not an option so go back and click YESSSS";
-    showConfetti()
 
 }
   
