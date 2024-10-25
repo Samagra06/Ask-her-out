@@ -51,28 +51,42 @@ function showQuestion() {
 function answer(option) {
     const currentQuestion = questions[currentQuestionIndex];
 
-    // If it's the first question and "Yes" is chosen, show confetti
+    // If it's the first question and "Yes" is chosen, show confetti and special message
     if (currentQuestionIndex === 0 && option === 'A') {  // "A" is Yes
         document.getElementById("messageText").innerHTML = currentQuestion.yesResponse;
+
+        // Hide question and options
+        document.getElementById("questions").style.display = "none";
+
+        // Show confetti for the first "Yes" answer
         if (currentQuestion.showConfetti) {
-            showConfetti();  // Show confetti for the first "Yes" answer
+            showConfetti();
         }
+
+        // Display the message for a longer duration (e.g., 4 seconds)
+        setTimeout(() => {
+            document.getElementById("message").style.display = "none";
+            currentQuestionIndex++;  // Move to the next question
+            showQuestion();
+        }, 4000);  // 4 seconds for the special message
     } else if (currentQuestionIndex === 0 && option === 'B') {  // "B" is No
         document.getElementById("messageText").innerHTML = currentQuestion.noResponse;
     } else {
         document.getElementById("messageText").innerHTML = "Great choice! Moving to the next...";
     }
 
-    // Hide the message after 2 seconds and go to the next question
-    setTimeout(() => {
-        document.getElementById("message").style.display = "none";
-        currentQuestionIndex++;  // Move to the next question
-        if (currentQuestionIndex < questions.length) {
-            showQuestion();
-        } else {
-            showFinalMessage();
-        }
-    }, 2000);  // Delay of 2 seconds for transition
+    // If it's not the first question or option is No, show the message for 2 seconds
+    if (!(currentQuestionIndex === 0 && option === 'A')) {
+        setTimeout(() => {
+            document.getElementById("message").style.display = "none";
+            currentQuestionIndex++;  // Move to the next question
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showFinalMessage();
+            }
+        }, 4000);  // 2 seconds for regular messages
+    }
 
     // Display message temporarily
     document.getElementById("message").style.display = "block";
