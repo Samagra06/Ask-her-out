@@ -51,32 +51,30 @@ function showQuestion() {
 function answer(option) {
     const currentQuestion = questions[currentQuestionIndex];
 
-    // If it's the first question and "Yes" is chosen, show confetti and special message
-    if (currentQuestionIndex === 0 && option === 'A') {  // "A" is Yes
-        document.getElementById("messageText").innerHTML = currentQuestion.yesResponse;
-
-        // Hide question and options
-        document.getElementById("questions").style.display = "none";
-
-        // Show confetti for the first "Yes" answer
-        if (currentQuestion.showConfetti) {
-            showConfetti();
+    // Check if it's the first question and display the appropriate message
+    if (currentQuestionIndex === 0) {
+        if (option === 'A') {  // "A" is Yes
+            document.getElementById("messageText").innerHTML = currentQuestion.yesResponse;
+            if (currentQuestion.showConfetti) {
+                showConfetti();  // Show confetti only for "Yes" on the first question
+            }
+        } else {  // "B" is No
+            document.getElementById("messageText").innerHTML = currentQuestion.noResponse;
         }
 
-        // Display the message for a longer duration (e.g., 4 seconds)
+        // Hide the question section for the first question response
+        document.getElementById("questions").style.display = "none";
+
+        // Display the message for 4 seconds, then move to the next question
         setTimeout(() => {
             document.getElementById("message").style.display = "none";
             currentQuestionIndex++;  // Move to the next question
             showQuestion();
-        }, 4000);  // 4 seconds for the special message
-    } else if (currentQuestionIndex === 0 && option === 'B') {  // "B" is No
-        document.getElementById("messageText").innerHTML = currentQuestion.noResponse;
-    } else {
-        document.getElementById("messageText").innerHTML = "Great choice! Moving to the next...";
-    }
+        }, 4000);  // 4-second display for the first question message
 
-    // If it's not the first question or option is No, show the message for 2 seconds
-    if (!(currentQuestionIndex === 0 && option === 'A')) {
+    } else {
+        // For subsequent questions, show a temporary message for 2 seconds
+        document.getElementById("messageText").innerHTML = "Great choice! Moving to the next...";
         setTimeout(() => {
             document.getElementById("message").style.display = "none";
             currentQuestionIndex++;  // Move to the next question
@@ -85,7 +83,7 @@ function answer(option) {
             } else {
                 showFinalMessage();
             }
-        }, 2000);  // 2 seconds for regular messages
+        }, 2000);  // 2-second display for regular messages
     }
 
     // Display message temporarily
