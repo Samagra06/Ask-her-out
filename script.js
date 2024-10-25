@@ -85,7 +85,7 @@ function answer(option) {
             } else {
                 showFinalMessage();
             }
-        }, 4000);  // 2 seconds for regular messages
+        }, 2000);  // 2 seconds for regular messages
     }
 
     // Display message temporarily
