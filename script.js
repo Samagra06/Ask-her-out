@@ -83,7 +83,7 @@ function answer(option) {
             } else {
                 showFinalMessage();
             }
-        }, 2000);  // 2-second display for regular messages
+        }, 1000);  // 2-second display for regular messages
     }
 
     // Display message temporarily
